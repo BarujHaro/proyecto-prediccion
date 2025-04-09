@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediccion</title>
+    <link rel="stylesheet" href="../static/styles/form-style.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <button onclick="window.location.href='/'" class="Boton-inicio">Volver al Dashboard</button>
+        <div class="Formulario">
+     
+       <!--Formulario para prediccion-->
+       <h2>Formulario para predecir el estado de la empresa</h2>
+       <form method="POST">
+           <div class="form-group">
+               <label for="anno">Año:</label>
+               <small class="texto-ayuda">Año en curso (Ej: 2025).</small>
+               <input type="number" id="anno" name="anno" required>
+               
+           </div>
+           
+           <div class="form-group">
+               <label for="activos">Activos:</label>
+               <small class="texto-ayuda">Activos que se espera vender en el próximo año (Ej: 800000).</small>
+               <input type="number" id="activos" name="activos" required>
+           </div>
+           
+           <div class="form-group">
+               <label for="depreciacion">Depreciación:</label>
+               <small class="texto-ayuda">Pérdida de valor de los activos a lo largo del tiempo (Ej: 50000).</small>
+               <input type="number" id="depreciacion" name="depreciacion" required>
+           </div>
+     
+         <div class="form-group">
+           <label for="inventario">Inventario:</label>
+           <small class="texto-ayuda">Contabilidad de los artículos que se venden (Ej: 200000).</small>
+           <input type="number" id="inventario" name="inventario" required>
+       </div>
+       
+       <div class="form-group">
+           <label for="ingresos netos">Ingresos Netos:</label>
+           <small class="texto-ayuda">Rentabilidad global (Ej: 30000).</small>
+           <input type="number" id="ingresos_netos" name="ingresos_netos" required>
+       </div>
+       
+       <div class="form-group">
+           <label for="total de cuentas por cobrar">Total Cuentas por Cobrar:</label>
+           <small class="texto-ayuda">Saldo de dinero adeudado (Ej: 200000).</small>
+           <input type="number" id="total_de_cuentas_por_cobrar" name="total_de_cuentas_por_cobrar" required>
+       </div>
+       <div class="form-group">
+           <label for="valor del mercado">Valor del Mercado:</label>
+           <small class="texto-ayuda">Precio de un activo en un mercado (Ej: 1000000).</small>
+           <input type="number" id="valor_del_mercado" name="valor_del_mercado" required>
+       </div>
+       
+       <div class="form-group">
+           <label for="deuda a largo plazo">Deuda a Largo Plazo:</label>
+           <small class="texto-ayuda">Pasivos que no vencen dentro de un año (Ej: 150000).</small>
+           <input type="number" id="deuda_a_largo_plazo" name="deuda_a_largo_plazo" required>
+       </div>
+       
+       <div class="form-group">
+           <label for="beneficio bruto">Beneficio Bruto:</label>
+           <small class="texto-ayuda">Utilidad después de deducir costos (Ej: 400000).</small>
+           <input type="number" id="beneficio_bruto" name="beneficio_bruto" required>
+       </div>
+       <div class="form-group">
+           <label for="pasivos corrientes totales">Pasivos Corrientes Totales:</label>
+           <small class="texto-ayuda">Suma de cuentas por pagar (Ej: 100000).</small>
+           <input type="number" id="pasivos_corrientes_totales" name="pasivos_corrientes_totales" required>
+       </div>
+       
+       <div class="form-group">
+           <label for="ganancias retenidas">Ganancias Retenidas:</label>
+           <small class="texto-ayuda">Ganancias después de pagar costos (Ej: 250000).</small>
+           <input type="number" id="ganancias_retenidas" name="ganancias_retenidas" required>
+       </div>
+       
+       <button type="submit">Predecir</button>
+     </form>
+     
+     <div id="resultModal" class="modal" style="display: none;">
+        <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <p id="resultText"></p>
+        </div>
+      </div>
+
+
+        </div>
+         
+     
+        <div class="Contenido">
+            <div class="exp">
+                <h2>Explicación del Modelo</h2>
+                <p>En este apartado se explicarán los conceptos relevantes empleados en el algoritmo de  aprendizaje supervisado de machine learning concoidomo como Random Forest (Bosques aleatorios) que nos permite predecir si un negocio tendrá riesgo de quebrar o no.
+                    Este modelo fue entrenado con los datos de empresas que estaban en el stock market en el período de 1999 a 2018.
+                </p>
+            </div>
+     
+            <!-- Parametros usados -->
+            <div class="card">
+                <h3>Parámetros del Modelo</h3>
+                <div class="table-container">
+                    <table class="parameters-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro</th>
+                                <th>Valor</th>
+                                <th>Significado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for nombre, valor in parametros.items() %}
+                            <tr>
+                                <td><strong>{{ nombre }}</strong></td>
+                                <td>{{ valor }}</td>
+                                <td>
+                                    {% if nombre == 'criterion' %}
+                                    Medida de calidad de división (gini/entropy)
+                                    {% elif nombre == 'max_depth' %}
+                                    Profundidad máxima del árbol
+                                    {% elif nombre == 'min_samples_split' %}
+                                    Mínimo de muestras para dividir un nodo
+                                    {% elif nombre == 'min_samples_leaf' %}
+                                    Mínimo de muestras en nodos hoja
+                                    {% elif nombre == 'max_features' %}
+                                    Número de features consideradas
+                                    {% elif nombre == 'n_estimators' %}
+                                    Número de árboles generados
+                                    {% elif nombre == 'class_weight' %}
+                                    Maneja las clases desbalanceadas
+                                    {% elif nombre == 'random_state' %}
+                                    Controla la aleatoriedad
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            
+            <!-- Metricas de rendimiento-->
+            <div class="metrics-card">
+                <h3>Rendimiento del Modelo</h3>
+                <p>Estas fueron las métricas utilizadas para evaluar el modelo, MAE nos indica que el modelo es aceptable y los F1-Score nos indican para que clase es más aceptable</p>
+                <div class="metrics-table-container">
+                    <table class="metrics-table">
+                        <thead>
+                            <tr>
+                                <th>Métrica</th>
+                                <th>Valor</th>
+                                <th>Significado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>MAE</strong></td>
+                                <td>{{ metricas.MAE|round(3) }}</td>
+                                <td>Error absoluto medio (cuánto se desvía en promedio la predicción)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>F1-Score (Failed)</strong></td>
+                                <td>{{ metricas['F1-Score (Failed)']|round(3) }}</td>
+                                <td>Balance entre precisión y recall para la clase "Failed" (empresas en riesgo)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>F1-Score (Alive)</strong></td>
+                                <td>{{ metricas['F1-Score (Alive)']|round(3) }}</td>
+                                <td>Balance entre precisión y recall para la clase "Alive" (empresas saludables)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Matriz de confusion -->
+            <div class="matrix">
+            <h2>Matriz de Confusión</h2>
+            <p>La matriz de confusión muestra el desempeño de un modelo comparando sus predicciones con valores reales.
+                El modelo tiene tendencia a predecir acertadamente los negocios fuera de riesgo sobre aquellos negocios en riesgo.
+            </p>
+            <img src="../static/cm.png" 
+                alt="Matriz de Confusión" 
+                class="matrix-img">
+            </div>
+
+
+
+
+            <!-- RArbol de ejemplo -->
+            <div class="arbol">
+                <h2>Ejemplo generado de un árbol de decisión</h2>
+                <p>Esta es una visualización de tres niveles de un árbol de decisión de los que se crearon para el RandomForest, con su criterio de separación gini y las variables con las cuales se evalua el árbol.</p>
+                <img src="../static/arbol.png" 
+                    alt="Arbol" 
+                    class="arbol-img">
+            </div>
+            
+            
+                </div>
+          
+     
+      
+
+    </div>
+
+
+
+    <script src="../static/script/script-form.js"></script>
+        
+</body>
+</html>
