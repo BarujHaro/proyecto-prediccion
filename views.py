@@ -47,6 +47,7 @@ def show_form():
                 })
                 
         except Exception as e:
+            print(str(e))
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return jsonify({
                     'error': str(e),

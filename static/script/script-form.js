@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const resultText = document.getElementById('resultText');
     const closeButton = document.querySelector('.close-button');
 
-    function showModal(message) {
+    function showModal(message, isSuccess) {
         resultText.innerHTML = message;
+        resultText.style.color = isSuccess ? 'green' : 'red';
         modal.style.display = 'flex';
     }
 
@@ -14,13 +15,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     closeButton.addEventListener('click', hideModal);
-    modal.addEventListener('click', function(event) {
+    modal.addEventListener('click', function (event) {
         if (event.target === modal) hideModal();
     });
 
     form.addEventListener('submit', async function (event) {
         event.preventDefault();
-        
+
         // Mostrar estado de carga
         const submitBtn = form.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
@@ -56,19 +57,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const result = await response.json();
-            
+
             if (result.prediccion === undefined) {
                 throw new Error('La respuesta no contiene predicción');
             }
 
-            const prediction = result.prediccion === 1 ? 
+            const prediction = result.prediccion === 1 ?
                 'Empresa fuera de riesgo' : 'Empresa dentro de riesgo';
-            
-            showModal(`<strong>Resultado:</strong> ${prediction}`);
+            const isSuccess = result.prediccion === 1;
+            showModal(`<strong>Resultado:</strong> ${prediction}`, isSuccess);
 
         } catch (error) {
             console.error('Error completo:', error);
-            showModal(`<strong>Error:</strong> ${error.message}`);
+            showModal(` < strong > Error: < /strong> ${error.message}`);
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Predecir';
