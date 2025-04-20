@@ -1,0 +1,81 @@
+
+casos = {
+    "Empresa en riesgo (Failed)": {
+        'activos': 1200,
+        'depreciacion': 300,
+        'inventario': 500,
+        'ingresos netos': -100,
+        'total de cuentas por cobrar': 200,
+        'valor del mercado': 100,
+        'deuda a largo plazo': 900,
+        'beneficio bruto': 2000,
+        'pasivos corrientes totales': 8000,
+        'ganancias retenidas': -15000
+    },
+    "Empresa sana (Alive)": {
+        'activos': 1000000,
+        'depreciacion': 50000,
+        'inventario': 250000,
+        'ingresos netos': 150000,
+        'total de cuentas por cobrar': 300000,
+        'valor del mercado': 2000000,
+        'deuda a largo plazo': 250000,
+        'beneficio bruto': 800000,
+        'pasivos corrientes totales': 300000,
+        'ganancias retenidas': 500000
+    },
+    "Caso dudoso (alive)": {
+        'activos': 1500,
+        'depreciacion': 100,
+        'inventario': 4000,
+        'ingresos netos': 250,
+        'total de cuentas por cobrar': 300,
+        'valor del mercado': 1800,
+        'deuda a largo plazo': 350,
+        'beneficio bruto': 600,
+        'pasivos corrientes totales': 280,
+        'ganancias retenidas': 500
+    },
+    "Caso realista (failded)":{
+        'activos': 350.0,  # 350,000 USD
+        'depreciacion': 45.0,
+        'inventario': 120.0,
+        'ingresos netos': -85.0,  # Pérdida de 85,000 USD
+        'total de cuentas por cobrar': 90.0,
+        'valor del mercado': 280.0,
+        'deuda a largo plazo': 320.0,  # Deuda > Activos
+        'beneficio bruto': 95.0,
+        'pasivos corrientes totales': 180.0,
+        'ganancias retenidas': -150.0  # Pérdidas acumuladas
+    },
+    #El caso donde tiene todos datos uniformes falla debido a que el modelo no fue entrenado para estos casos
+    "Caso 1":{
+    'activos': 1,  
+    'depreciacion': 1,
+    'inventario': 1,
+    'ingresos netos': 1,  
+    'total de cuentas por cobrar': 1,
+    'valor del mercado': 1,
+    'deuda a largo plazo': 1,  
+    'beneficio bruto': 1,
+    'pasivos corrientes totales': 1,
+    'ganancias retenidas': 1  
+    }
+}
+
+# Ejecutar cada caso
+for nombre, datos in casos.items():
+    resultado = prediccion(datos)
+    estado = "Alive" if resultado[0] == 1 else "Failed"
+    print(f"{nombre} → Predicción: {estado}")
+
+activos                        1468.615048
+depreciacion                    215.589842
+inventario                      351.610322
+ingresos netos                  258.855224
+total de cuentas por cobrar     497.158775
+valor del mercado              5640.055723
+deuda a largo plazo            1222.392023
+beneficio bruto                1348.665826
+pasivos corrientes totales     1084.840070
+ganancias retenidas            1293.217091

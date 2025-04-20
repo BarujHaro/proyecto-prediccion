@@ -1,0 +1,72 @@
+       <!--Formulario para prediccion-->
+       <h1>Predicción del estado de la empresa</h1>
+       <h2>Formulario para el análisis</h2>
+       <form id ="formulario" method="POST">
+           
+           <div class="form-group">
+               <label for="activos">Activos:</label>
+               <p class="texto-ayuda">Activos que se espera vender en el próximo año (Ej: 1500).</p>
+               <input type="number" id="activos" name="activos" required>
+           </div>
+           
+           <div class="form-group">
+               <label for="depreciacion">Depreciación:</label>
+               <p class="texto-ayuda">Pérdida de valor de los activos a lo largo del tiempo (Ej: 100).</p>
+               <input type="number" id="depreciacion" name="depreciacion" required>
+           </div>
+     
+         <div class="form-group">
+           <label for="inventario">Inventario:</label>
+           <p class="texto-ayuda">Contabilidad de los artículos que se venden (Ej: 4000).</p>
+           <input type="number" id="inventario" name="inventario" required>
+       </div>
+       
+       <div class="form-group">
+           <label for="ingresos netos">Ingresos Netos:</label>
+           <p class="texto-ayuda">Rentabilidad global (Ej: 250).</p>
+           <input type="number" id="ingresos_netos" name="ingresos_netos" required>
+       </div>
+       
+       <div class="form-group">
+           <label for="total de cuentas por cobrar">Total Cuentas por Cobrar:</label>
+           <p class="texto-ayuda">Saldo de dinero adeudado (Ej: 300).</p>
+           <input type="number" id="total_de_cuentas_por_cobrar" name="total_de_cuentas_por_cobrar" required>
+       </div>
+       <div class="form-group">
+           <label for="valor del mercado">Valor del Mercado:</label>
+           <p class="texto-ayuda">Precio de un activo en un mercado (Ej: 1800).</p>
+           <input type="number" id="valor_del_mercado" name="valor_del_mercado" required>
+       </div>
+       
+       <div class="form-group">
+           <label for="deuda a largo plazo">Deuda a Largo Plazo:</label>
+           <p class="texto-ayuda">Pasivos que no vencen dentro de un año (Ej: 350).</p>
+           <input type="number" id="deuda_a_largo_plazo" name="deuda_a_largo_plazo" required>
+       </div>
+       
+       <div class="form-group">
+           <label for="beneficio bruto">Beneficio Bruto:</label>
+           <p class="texto-ayuda">Utilidad después de deducir costos (Ej: 600).</p>
+           <input type="number" id="beneficio_bruto" name="beneficio_bruto" required>
+       </div>
+       <div class="form-group">
+           <label for="pasivos corrientes totales">Pasivos Corrientes Totales:</label>
+           <p class="texto-ayuda">Suma de cuentas por pagar (Ej: 280).</p>
+           <input type="number" id="pasivos_corrientes_totales" name="pasivos_corrientes_totales" required>
+       </div>
+       
+       <div class="form-group">
+           <label for="ganancias retenidas">Ganancias Retenidas:</label>
+           <p class="texto-ayuda">Ganancias después de pagar costos (Ej: 500).</p>
+           <input type="number" id="ganancias_retenidas" name="ganancias_retenidas" required>
+       </div>
+       
+       <button type="submit">Predecir</button>
+     </form>
+     
+     <div id="resultModal" class="modal" style="display: none;">
+        <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <p id="resultText"></p>
+        </div>
+      </div>

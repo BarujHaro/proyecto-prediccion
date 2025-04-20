@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request, jsonify
-from RF import ruta_matriz, ruta_imagen, obtener_metricas, model, prediccion, obtener_parametros_modelo
+from RF import obtener_metricas, model, prediccion, obtener_parametros_modelo, explicar_fallo
 
 views = Blueprint(__name__, "views")
-#Parte del Dashboard
+
 @views.route("/", methods=["GET", "POST"])
-def show_form():
+def show_index():
     pred = None
     if request.method == 'POST':
         try:
@@ -29,10 +29,13 @@ def show_form():
             
             pred = prediccion(datos_usuario)
             
+            mensaje = explicar_fallo(datos_usuario)
+            
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return jsonify({
                     'prediccion': int(pred[0]),
-                    'status': 'success'
+                    'status': 'success',
+                    'mensaje': mensaje
                 })
                 
         except Exception as e:
@@ -44,12 +47,12 @@ def show_form():
                 }), 400
             raise
 
-    # Resto de tu lógica para GET
+
     parametros = obtener_parametros_modelo(model)
     metricas = obtener_metricas()
-    return render_template("form.html", 
+    return render_template("index.html", 
                          parametros=parametros,
                          metricas=metricas,
-                         ruta_ma=ruta_matriz,
+                         ruta_ma='static/cm.png',
                          pred=pred,
-                         arbol=ruta_imagen)
+                         arbol='static/arbol.png')

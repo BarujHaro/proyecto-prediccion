@@ -17,25 +17,25 @@ body{
     justify-content: center;
 }
 p{
-    font-size: 24px;
-}
-h1 {
-    font-size: 36px;
-}
-h2 {
-    font-size: 32px;
-}
-h3{
-    font-size: 28px;
-}
-label {
     font-size: 26px;
 }
+h1 {
+    font-size: 38px;
+}
+h2 {
+    font-size: 34px;
+}
+h3{
+    font-size: 30px;
+}
+label {
+    font-size: 28px;
+}
 .texto-ayuda {
-    font-size: 20px;
+    font-size: 22px;
 }
 table {
-    font-size: 24px;
+    font-size: 26px;
 }
 
 .contenedor{
@@ -55,7 +55,7 @@ button{
     background-color: #0800ff;
     color: white;
     margin: 20px;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
     border: none;
@@ -85,7 +85,7 @@ form{
 }
 .form-group input{
     width: 60%;
-    font-size: 20px;
+    font-size: 24px;
     padding: 10px;
     box-sizing: border-box;
     border-radius: 5px;
@@ -108,15 +108,17 @@ form{
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-    width: 300px;
+    width: 600px;
     position: relative;
+    max-height: 80vh;
+    overflow-y: auto;
   }
   
   .close-button {
     position: absolute;
     right: 10px;
     top: 5px;
-    font-size: 24px;
+    font-size: 26px;
     cursor: pointer;
   }
 

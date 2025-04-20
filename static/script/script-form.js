@@ -29,14 +29,43 @@ document.addEventListener('DOMContentLoaded', function () {
         const values = inputs.map(input => parseFloat(input.value));
                 
                 // Validación 1: Todos los valores son iguales
-        const allEqual = values.every(val => val === values[0]);
-
-        if (allEqual) {
-
-            showModal('<strong>Error:</strong> Todos los valores no pueden ser idénticos. Por favor ingrese datos realistas.', false);
-            return;
-            }
-
+                function validateInput(values) {
+                    const uniqueValues = [...new Set(values)];
+                
+                    // Verificar si todos los valores son iguales
+                    if (uniqueValues.length === 1) {
+                        return {
+                            valid: false,
+                            message: 'Todos los valores no pueden ser idénticos. Por favor ingrese datos realistas.'
+                        };
+                    }
+                
+                    // Verificar si solo uno es diferente (como 1,1,1,1,15000)
+                    if (uniqueValues.length === 2) {
+                        const counts = values.reduce((acc, val) => {
+                            acc[val] = (acc[val] || 0) + 1;
+                            return acc;
+                        }, {});
+                        const valuesCounts = Object.values(counts);
+                        if (valuesCounts.includes(1)) {
+                            return {
+                                valid: false,
+                                message: 'Un único valor es diferente al resto. Por favor revise los datos ingresados.'
+                            };
+                        }
+                    }
+                
+                    
+                
+                    return { valid: true };
+                }
+                
+                
+                const validation = validateInput(values);
+                if (!validation.valid) {
+                    showModal(`<strong>Error:</strong> ${validation.message}`, false);
+                    return;
+                }
         // Mostrar estado de carga
         const submitBtn = form.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
@@ -80,7 +109,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const prediction = result.prediccion === 1 ?
                 'Empresa fuera de riesgo' : 'Empresa dentro de riesgo';
             const isSuccess = result.prediccion === 1;
-            showModal(`<strong>Resultado:</strong> ${prediction}`, isSuccess);
+
+            const reason = result.mensaje||'';
+            showModal(`<strong>Resultado:</strong> ${prediction}<br><strong>Razón:</strong> ${reason}`, isSuccess);
 
         } catch (error) {
             console.error('Error completo:', error);
